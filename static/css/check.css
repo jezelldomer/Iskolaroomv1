@@ -1,0 +1,287 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #430A09;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 50px;
+    height: 113px;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header .admin-section {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+}
+
+header .admin-section img {
+    width: 30px;
+    height: auto;
+}
+
+header .admin-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    position: relative;
+}
+
+header .admin-dropdown .arrow {
+    font-size: 12px;
+    color: white;
+}
+
+header .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+    width: 150px;
+}
+
+header .dropdown-menu.active {
+    display: block;
+}
+
+header .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #430A09;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+header .dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+header .dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+
+header .dropdown-menu a i {
+    margin-right: 10px;
+}
+
+header .help-circle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #430A09;
+    font-weight: bold;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #430A09;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+
+.dropdown-menu a i {
+    margin-right: 10px;
+}
+
+.container {
+    padding: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.container h2 {
+    font-size: 35px;
+    color: #430A09;
+    margin-bottom: 10px;
+    position: relative;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    top: -65px;
+}
+
+.search-bar .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 8px 35px 8px 12px;
+    font-size: 14px;
+    border: 3px solid #430a09;
+    border-radius: 20px;
+    flex: 1;
+    max-width: 250px;
+    color: #430A09;
+}
+
+.search-bar input::placeholder {
+    color: #430A09;
+}
+
+.search-bar .input-container::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    width: 16px;
+    height: 16px;
+    background-image: url('imgs/Search.png');
+    background-size: cover;
+}
+
+.container h2::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #430A09;
+    margin-top: 5px;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.room-card {
+    background-color: white;
+    border: 3px solid #430A09;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 9px 14px 4px #00000080;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 9px 14px 14px rgba(0, 0, 0, 0.2);
+}
+
+.room-card img {
+    width: 100%;
+}
+
+.room-card .room-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #600807;
+    margin: 10px 0;
+}
+
+.room-card button {
+    background-color: #600807;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 105px;
+}
+
+.room-card button:hover {
+    background-color: #5b0c0a;
+}
+
+/* Dropdown Menu */
+#adminDropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    top: 50px; /* Adjust to fit your design */
+    right: 0;
+    z-index: 10;
+    padding: 10px;
+}
+
+#adminDropdown.active {
+    display: block; /* Show when active */
+}
+
+#adminDropdown a {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    text-decoration: none;
+    color: #430A09;
+    font-size: 14px;
+    gap: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+#adminDropdown a:hover {
+    background-color: #f2f2f2;
+}

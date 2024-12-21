@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSkoLaROOMS - Room {{ room }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/date.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>iSkoLaROOMS</h1>
+        <div class="admin-section" style="position: relative;">
+            <img src="{{ url_for('static', filename='imgs/admin.png') }}" alt="Admin">
+            <div class="admin-dropdown" onclick="toggleDropdown()">
+                <span>Admin</span>
+                <span class="arrow">&#9662;</span>
+            </div>
+            <div class="dropdown-menu" id="adminDropdown">
+                <a href="#"><i class="material-icons">person</i> Profile</a>
+                <a href="{{ url_for('logout') }}"><i class="material-icons">exit_to_app</i> Logout</a>
+            </div>
+            <div class="help-circle">?</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Room {{ room }}</h2>
+        
+        <div class="search-bar">
+            <div class="input-container" style="position: relative;">
+                <input type="text" placeholder="Search">
+                <i class="material-icons search-icon" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">search</i>
+            </div>
+        </div>
+        
+        <!-- Updated back arrow link using url_for -->
+        <a href="{{ url_for('index') }}" class="back-arrow">
+            <img src="{{ url_for('static', filename='imgs/arrow_back.png') }}" alt="Back" style="width: 35px; height: auto;">
+        </a>
+
+        <div id="foldersContainer" class="room-grid">
+            <!-- Folder cards are dynamically inserted via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('adminDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close the dropdown if clicked outside
+        window.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('adminDropdown');
+            const adminDropdown = document.querySelector('.admin-dropdown');
+            if (!adminDropdown.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        async function fetchFolders() {
+            try {
+                const response = await fetch('/folders'); // Adjust the endpoint as necessary
+                const folders = await response.json();
+
+                const foldersContainer = document.getElementById('foldersContainer');
+                foldersContainer.innerHTML = ""; // Clear loading message
+
+                if (folders.length === 0) {
+                    foldersContainer.innerHTML = "<p>No folders found.</p>";
+                    return;
+                }
+
+                folders.forEach(date => {
+                const folderCard = document.createElement("div");
+                folderCard.className = "room-card";
+                folderCard.innerHTML = `
+                    <a href="/folder/${date}" class="folder-link">
+                        <i class="material-icons">folder</i>
+                        <span class="folder-name">${date}</span>
+                    </a>
+                `;
+                foldersContainer.appendChild(folderCard);
+            });
+
+            } catch (error) {
+                console.error("Error fetching folders:", error);
+                document.getElementById('foldersContainer').innerHTML = "<p>Error loading folders.</p>";
+            }
+        }
+
+        fetchFolders();
+
+        // Optional: Add search functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const filter = this.value.toLowerCase();
+            const folderCards = document.querySelectorAll('.room-card');
+
+            folderCards.forEach(card => {
+                const folderName = card.textContent.toLowerCase();
+                card.style.display = folderName.includes(filter) ? '' : 'none';
+            });
+        });
+
+        // Function to get query parameter value by name
+function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+window.addEventListener('load', function () {
+    // Retrieve the room number from the URL query parameter
+    const roomNumber = getQueryParam('room');
+
+    // If room number exists, update the page with the correct room number
+    if (roomNumber) {
+        document.querySelector('h2').textContent = "Room " + roomNumber; // Update the header
+    } else {
+        document.querySelector('h2').textContent = "Room None"; // Default if no room number
+    }
+});
+    </script>
+</body>
+</html>

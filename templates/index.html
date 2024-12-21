@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/check.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>iSkoLaROOMS</h1>
+        <div class="admin-section">
+            <img src="{{ url_for('static', filename='imgs/admin.png') }}" alt="Admin">
+            <div class="admin-dropdown" onclick="toggleDropdown()">
+                <span>Admin</span>
+                <span class="arrow">&#9662;</span>
+            </div>
+            <div class="dropdown-menu" id="adminDropdown">
+                <a href="#"><i class="material-icons">person</i> Profile</a>
+                <a href="{{ url_for('logout') }}"><i class="material-icons">exit_to_app</i> Logout</a>
+            </div>
+            <div class="help-circle">?</div>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Room Selection</h2>
+        <div class="search-bar">
+            <div class="input-container" style="position: relative;">
+                <input type="text" placeholder="Search">
+                <i class="material-icons search-icon" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">search</i>
+            </div>
+        </div>
+        <div class="room-grid">
+            <div class="room-card">
+                <img src="{{ url_for('static', filename='imgs/Picture.png') }}" alt="Room">
+                <div class="room-name">Room 300</div>
+                <button class="view-button" data-room="300">View</button>
+            </div>
+            
+            {% for room in range(301, 316) %}
+            <div class="room-card">
+                <img src="{{ url_for('static', filename='imgs/Picture.png') }}" alt="Room">
+                <div class="room-name">Room {{ room }}</div>
+                <button class="view-button" data-room="{{ room }}" disabled>View</button> <!-- Disable all other buttons -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('adminDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close the dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('adminDropdown');
+            const adminDropdown = document.querySelector('.admin-dropdown');
+            if (!adminDropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Redirect based on room selection
+        const viewButtons = document.querySelectorAll('.view-button');
+        viewButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const roomNumber = button.getAttribute('data-room');
+                window.location.href = `/dates?room=${roomNumber}`; // Redirect to dates route with room as a query parameter
+            });
+        });
+
+    </script>
+</body>
+</html>

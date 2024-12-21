@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSkolaROOMS Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="login-box">
+                <form action="{{ url_for('login') }}" method="POST">
+                    <h4>Username</h4>
+                    <input type="text" name="username" required>
+                    <h4>Password</h4>
+                    <input type="password" name="password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p><a href="#" class="admin-link">Admin?</a></p>
+                <p class="note">If you are not a user, you are not welcome.</p>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="content">
+                <img src="{{ url_for('static', filename='imgs/iskolaroom.png') }}">
+                <p>Room Management Monitoring</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
